@@ -13,9 +13,10 @@ interface TaskCardProps {
   index: number;
   setTasks: any;
   onEdit: (task: any, index: number) => void;
+  className?: string;
 }
 
-export default function TaskCard({ task, index, setTasks, onEdit }: TaskCardProps) {
+export default function TaskCard({ task, index, setTasks, onEdit, className }: TaskCardProps) {
   const [showMenu, setShowMenu] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const ellipsisRef = useRef<TouchableOpacity>(null);
@@ -33,7 +34,6 @@ export default function TaskCard({ task, index, setTasks, onEdit }: TaskCardProp
       return updatedTasks;
     });
   }, [index, setTasks]);
-
 
   const handleMenuPress = () => {
     ellipsisRef.current?.measureInWindow((x, y, width, height) => {
@@ -69,8 +69,9 @@ export default function TaskCard({ task, index, setTasks, onEdit }: TaskCardProp
   };
 
   return (
-    <View className="mt-4 rounded-2xl border border-neutral-200 bg-white p-4 shadow-lg shadow-gray-200">
-      <View className="mb-3 flex-row items-start justify-between">
+    <View
+      className={`mt-4 rounded-2xl border border-neutral-200 bg-white p-4 shadow-lg shadow-gray-200 ${className}`}>
+      <View className="mb-3 flex-row flex-wrap items-start justify-between">
         <View className="mr-4 flex-1">
           <Text
             className={`font-poppins-semibold text-lg ${task?.completed ? 'text-gray-400 line-through' : 'text-black'}`}>
@@ -78,7 +79,7 @@ export default function TaskCard({ task, index, setTasks, onEdit }: TaskCardProp
           </Text>
           {task?.description && (
             <Text
-              className={`mt-1 font-poppins-regular ${task?.completed ? 'text-gray-300' : 'text-gray-600'}`}>
+              className={`mt-1 line-clamp-1 font-poppins-regular ${task?.completed ? 'text-gray-300' : 'text-gray-600'}`}>
               {task?.description}
             </Text>
           )}
@@ -94,22 +95,23 @@ export default function TaskCard({ task, index, setTasks, onEdit }: TaskCardProp
         </View>
       </View>
 
-      <View className="flex-row items-center justify-between border-t border-gray-100 pt-3">
-        <View className="flex-row items-center">
+      <View className="flex-row flex-wrap items-center justify-between border-t border-gray-100 pt-3">
+        <View className="w-full flex-row flex-wrap items-center">
           <Checkbox
             checked={task?.completed || false}
             onPress={toggleTaskCompletion}
-            size={24}
+            size={22}
             checkedColor="#0155B6"
             uncheckedColor="#9CA3AF"
           />
-          <Text onPress={toggleTaskCompletion} className="ml-3 font-poppins-medium text-gray-700">
+          <Text
+            onPress={toggleTaskCompletion}
+            className="ml-3 flex-1 font-poppins-medium text-gray-700">
             {task?.completed ? 'Mark as incomplete' : 'Mark as complete'}
           </Text>
         </View>
-
         {task?.completed && (
-          <Text className="font-poppins-regular text-sm text-green-600">Completed</Text>
+          <Text className="font-poppins-regular text-sm text-green-600 ">Completed</Text>
         )}
       </View>
 

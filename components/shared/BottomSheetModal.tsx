@@ -1,49 +1,82 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, {
+  forwardRef,
+  useMemo,
+  useRef,
+  useEffect,
+} from 'react';
 import {
-  BottomSheetModal as GorhomBottomSheetModal,
-  BottomSheetView,
+  BottomSheetModal,
+  BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Keyboard,
+} from 'react-native';
 
-interface BottomSheetModalProps {
+interface Props {
   children: React.ReactNode;
-  snapPoints?: (string | number)[];
   onClose?: () => void;
-  enablePanDownToClose?: boolean;
 }
 
-const BottomSheetModal = forwardRef<any, BottomSheetModalProps>(
-  ({ children, snapPoints = ['80%', '90%'], onClose, enablePanDownToClose = true }, ref) => {
-    const defaultSnapPoints = useMemo(() => snapPoints, [snapPoints]);
+const AppBottomSheet = forwardRef<BottomSheetModal, Props>(
+  ({ children, onClose }, ref) => {
+    const snapPoints = useMemo(() => ['60%', '100%'], []);
+    const sheetRef = useRef<BottomSheetModal>(null);
 
-    const handleBackdropPress = () => {
-      onClose?.();
-    };
+    // expose internal ref
+    useEffect(() => {
+      if (typeof ref === 'function') ref(sheetRef.current);
+      else if (ref) ref.current = sheetRef.current;
+    }, [ref]);
+
+    useEffect(() => {
+      const show = Keyboard.addListener('keyboardDidShow', () => {
+        sheetRef.current?.snapToIndex(1);
+      });
+
+      const hide = Keyboard.addListener('keyboardDidHide', () => {
+        sheetRef.current?.snapToIndex(0);
+      });
+
+      return () => {
+        show.remove();
+        hide.remove();
+      };
+    }, []);
 
     return (
-      <GorhomBottomSheetModal
-        ref={ref}
+      <BottomSheetModal
+        ref={sheetRef}
         index={0}
-        snapPoints={defaultSnapPoints}
-        backgroundStyle={styles.bottomSheetBackground}
-        handleIndicatorStyle={styles.indicator}
-        enablePanDownToClose={enablePanDownToClose}
+        snapPoints={snapPoints}
+        keyboardBehavior="interactive"
+        keyboardBlurBehavior="restore"
+        enablePanDownToClose
         onClose={onClose}
+        backgroundStyle={styles.background}
+        handleIndicatorStyle={styles.indicator}
         backdropComponent={({ style }) => (
           <TouchableOpacity
-            style={[style, { backgroundColor: 'rgba(0, 0, 0, 0.5)' }]}
+            style={[style, styles.backdrop]}
             activeOpacity={1}
-            onPress={handleBackdropPress}
+            onPress={onClose}
           />
-        )}>
-        <BottomSheetView className="p-6 pb-20">{children}</BottomSheetView>
-      </GorhomBottomSheetModal>
+        )}
+      >
+        <BottomSheetScrollView
+          contentContainerStyle={styles.content}
+          keyboardShouldPersistTaps="handled"
+        >
+          {children}
+        </BottomSheetScrollView>
+      </BottomSheetModal>
     );
   }
 );
 
 const styles = StyleSheet.create({
-  bottomSheetBackground: {
+  background: {
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -53,6 +86,13 @@ const styles = StyleSheet.create({
     width: 40,
     height: 5,
   },
+  backdrop: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  content: {
+    padding: 24,
+    paddingBottom: 80,
+  },
 });
 
-export default BottomSheetModal;
+export default AppBottomSheet;

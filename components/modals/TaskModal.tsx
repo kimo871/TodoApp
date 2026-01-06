@@ -36,6 +36,8 @@ const TaskModal = ({
   const handleSubmit = () => {
     if (title.trim()) {
       onSubmit?.({ title, description });
+      setTitle('');
+      setDescription('');
       onClose?.();
     }
   };

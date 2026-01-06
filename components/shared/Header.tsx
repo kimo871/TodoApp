@@ -3,7 +3,7 @@ import { View, Text, Image, Pressable, TextInput } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faMoon} from '@fortawesome/free-solid-svg-icons';
 import LOGO from '../../assets/logo.png';
-export default function Header() {
+export default function Header({setSearchQuery}:{setSearchQuery:(query:string)=>void}) {
   return (
     <View className=" rounded-b-3xl bg-[#0155B6] px-4  py-6 ">
       <View className="flex flex-row justify-between">
@@ -24,6 +24,7 @@ export default function Header() {
       <View className="flex flex-row justify-between items-center">
         <View className='flex-1'>
           <TextInput
+            onChangeText={(text)=>setSearchQuery(text)}
             className="font-poppins-regular mt-4 w-full rounded-lg bg-[#01489b] p-3 text-white"
             placeholder="Search Tasks..."
             placeholderTextColor="white"
