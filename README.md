@@ -72,7 +72,6 @@ yarn start
 | **Expo** | Development platform and build tools |
 | **TypeScript** | Type-safe JavaScript |
 | **Tailwind CSS** | Utility-first styling with `nativewind` |
-| **React Navigation** | Navigation handling |
 | **React Native Toast** | Toast notifications |
 | **@gorhom/bottom-sheet** | Smooth bottom sheet modals |
 | **React Native Gesture Handler** | Gesture handling |
