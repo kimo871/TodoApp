@@ -2,6 +2,44 @@
 
 A clean and intuitive task management application built with React Native, TypeScript, and Expo. This app allows users to efficiently manage their daily tasks with a beautiful dark/light theme interface.
 
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- **Node.js** (v18 or higher) - [Download](https://nodejs.org/)
+- **npm** or **yarn** (comes with Node.js)
+- **Expo CLI** - Install via `npm install -g expo-cli`
+- For iOS development: **Xcode** (Mac only)
+- For Android development: **Android Studio**
+
+### 📥 Installation & Setup
+
+#### Method 1: Quick Start (Recommended)
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/yourusername/taskmaster.git
+cd taskmaster
+
+# 2. Install dependencies
+npm install
+# or
+yarn install
+
+# 3. Start the development server
+npm start
+# or
+yarn start
+
+# 4. Run on your preferred platform
+# Press 'i' for iOS simulator
+# Press 'a' for Android emulator
+# Scan QR code with Expo Go app (Android/iOS)
+```
+
 ## ✨ Features
 
 ### ✅ Task Management
