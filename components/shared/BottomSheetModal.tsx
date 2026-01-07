@@ -13,6 +13,8 @@ import {
   StyleSheet,
   Keyboard,
 } from 'react-native';
+import { themeColors } from 'config/colors';
+import { useTheme } from 'hooks/useTheme';
 
 interface Props {
   children: React.ReactNode;
@@ -21,6 +23,7 @@ interface Props {
 
 const AppBottomSheet = forwardRef<BottomSheetModal, Props>(
   ({ children, onClose }, ref) => {
+    const {isDark, theme} = useTheme();
     const snapPoints = useMemo(() => ['60%', '100%'], []);
     const sheetRef = useRef<BottomSheetModal>(null);
 
@@ -44,6 +47,26 @@ const AppBottomSheet = forwardRef<BottomSheetModal, Props>(
         hide.remove();
       };
     }, []);
+
+    const styles = useMemo(() => StyleSheet.create({
+      background: {
+        backgroundColor: themeColors[theme as keyof typeof themeColors]?.background,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+      },
+      indicator: {
+        backgroundColor: '#e0e0e0',
+        width: 40,
+        height: 5,
+      },
+      backdrop: {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+      },
+      content: {
+        padding: 24,
+        paddingBottom: 80,
+      },
+    }), [theme]);
 
     return (
       <BottomSheetModal
@@ -74,25 +97,5 @@ const AppBottomSheet = forwardRef<BottomSheetModal, Props>(
     );
   }
 );
-
-const styles = StyleSheet.create({
-  background: {
-    backgroundColor: 'white',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  indicator: {
-    backgroundColor: '#e0e0e0',
-    width: 40,
-    height: 5,
-  },
-  backdrop: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  content: {
-    padding: 24,
-    paddingBottom: 80,
-  },
-});
 
 export default AppBottomSheet;

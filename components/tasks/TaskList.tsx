@@ -1,11 +1,12 @@
 /** Import  */
 import { useMemo, useRef, useState } from 'react';
-import { View, Text, Image, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, Image,TouchableOpacity, FlatList } from 'react-native';
 import EMPTY_STATE_IMAGE from '../../assets/empty_tasks_placeholder.png';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import TaskCard from './TaskCard';
 import TaskModal from 'components/modals/TaskModal';
+import React from 'react';
 /** End of Import  */
 
 /** TaskList Component */

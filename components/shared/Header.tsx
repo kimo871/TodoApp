@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, Image, Pressable, TextInput } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faMoon} from '@fortawesome/free-solid-svg-icons';
+import { faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
 import LOGO from '../../assets/logo.png';
-export default function Header({setSearchQuery}:{setSearchQuery:(query:string)=>void}) {
+export default function Header({setSearchQuery,theme,toggleTheme}:{setSearchQuery:(query:string)=>void,theme:'light' | 'dark',toggleTheme:()=>void}) {
   return (
     <View className=" rounded-b-3xl bg-[#0155B6] px-4  py-6 ">
       <View className="flex flex-row justify-between">
@@ -16,8 +16,8 @@ export default function Header({setSearchQuery}:{setSearchQuery:(query:string)=>
         <View className="flex flex-row items-center ">
           <Pressable
             className="rounded-full border border-gray-200 bg-gray-100 p-2"
-            onPress={() => {}}>
-            <FontAwesomeIcon icon={faMoon} size={15} color={'black'} />
+            onPress={() => {toggleTheme();}}>
+            <FontAwesomeIcon icon={theme=='dark' ? faSun : faMoon} size={15} color={'black'} />
           </Pressable>
         </View>
       </View>

@@ -1,4 +1,5 @@
 import BottomSheetModal from 'components/shared/BottomSheetModal';
+import { useTheme } from 'hooks/useTheme';
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useToast } from 'react-native-toast-notifications';
@@ -24,6 +25,7 @@ const TaskModal = ({
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const toast = useToast();
+  const { isDark } = useTheme();
 
   useEffect(() => {
     if (mode === 'edit' && initialData) {
@@ -41,8 +43,9 @@ const TaskModal = ({
       setTitle('');
       setDescription('');
       onClose?.();
-      toast.show(`Task ${mode === 'create' ? 'Created' : 'Updated'} Successfully`, { type: "success" });
-      
+      toast.show(`Task ${mode === 'create' ? 'Created' : 'Updated'} Successfully`, {
+        type: 'success',
+      });
     }
   };
 
@@ -51,14 +54,23 @@ const TaskModal = ({
 
   return (
     <BottomSheetModal ref={sheetRef} onClose={onClose}>
-      <Text className="mb-6 text-center font-poppins-bold text-xl">{modalTitle}</Text>
+      <Text
+        className={`mb-6 text-center font-poppins-bold text-xl ${
+          isDark ? 'text-white' : 'text-black'
+        }`}>
+        {modalTitle}
+      </Text>
 
       <View className="gap-4">
         <View>
           <TextInput
-            className="w-full rounded-lg border border-neutral-200 bg-[#f3f5f9] p-3 font-poppins-regular text-black"
+            className={`w-full rounded-lg border p-3 font-poppins-regular ${
+              isDark
+                ? 'border-[#475569] bg-[#334155] text-white'
+                : 'border-[#DEE2E6] bg-[#f3f5f9] text-black'
+            }`}
             placeholder="Add Task Title..."
-            placeholderTextColor="gray"
+            placeholderTextColor={isDark ? '#94A3B8' : '#6C757D'}
             value={title}
             onChangeText={setTitle}
             autoFocus={mode === 'create'}
@@ -66,10 +78,14 @@ const TaskModal = ({
         </View>
 
         <View>
-          <TextInput
-            className="w-full rounded-lg border border-neutral-200 bg-[#f3f5f9] p-3 font-poppins-regular text-black"
+           <TextInput
+            className={`w-full rounded-lg border p-3 font-poppins-regular ${
+              isDark 
+                ? 'border-[#475569] bg-[#334155] text-white' 
+                : 'border-[#DEE2E6] bg-[#f3f5f9] text-black'
+            }`}
             placeholder="Add Task Description..."
-            placeholderTextColor="gray"
+            placeholderTextColor={isDark ? '#94A3B8' : '#6C757D'}
             value={description}
             onChangeText={setDescription}
             multiline
