@@ -78,3 +78,33 @@ yarn start
 | **React Native Reanimated** | Smooth animations |
 | **React Native Async Storage** | Local data persistence |
 
+## 📱 Screenshots
+### Light Mode
+![App Home Screen Empty](screenshots/empty_task_placeholder.jpg)
+
+### Dark Mode  
+![Dark Mode Interface](screenshots/dark_mode.jpg)
+
+### Task Creation
+![Add Task Modal](screenshots/dark_mode.jpg)
+
+### Search Task 
+![Add Task Modal](screenshots/search.jpg)
+
+### Edit Task 
+![Add Task Modal](screenshots/edit_task.jpg)
+
+### Delete Task 
+![Add Task Modal](screenshots/delete_task.jpg)
+
+### Listing Grids
+![Add Task Modal](screenshots/grid.jpg)
+
+### Show Menu Options
+![Add Task Modal](screenshots/show_menu_options.jpg)
+
+### Show Toast After actions
+![Add Task Modal](screenshots/toast.jpg)
+
+
+
