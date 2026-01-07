@@ -1,6 +1,7 @@
 import BottomSheetModal from 'components/shared/BottomSheetModal';
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { useToast } from 'react-native-toast-notifications';
 
 interface TaskModalProps {
   sheetRef?: any;
@@ -13,15 +14,16 @@ interface TaskModalProps {
   };
 }
 
-const TaskModal = ({ 
-  sheetRef, 
-  onClose, 
-  onSubmit, 
-  mode = 'create', 
-  initialData 
+const TaskModal = ({
+  sheetRef,
+  onClose,
+  onSubmit,
+  mode = 'create',
+  initialData,
 }: TaskModalProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const toast = useToast();
 
   useEffect(() => {
     if (mode === 'edit' && initialData) {
@@ -39,6 +41,8 @@ const TaskModal = ({
       setTitle('');
       setDescription('');
       onClose?.();
+      toast.show(`Task ${mode === 'create' ? 'Created' : 'Updated'} Successfully`, { type: "success" });
+      
     }
   };
 
@@ -77,9 +81,7 @@ const TaskModal = ({
           <TouchableOpacity
             onPress={handleSubmit}
             className="flex w-full items-center rounded-xl bg-[#0155B6] p-3">
-            <Text className="text-center font-poppins-semibold text-white">
-              {buttonText}
-            </Text>
+            <Text className="text-center font-poppins-semibold text-white">{buttonText}</Text>
           </TouchableOpacity>
         </View>
       </View>

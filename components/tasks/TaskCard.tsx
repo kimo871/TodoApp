@@ -3,6 +3,7 @@ import { useCallback, useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, Alert, Modal, Dimensions } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { useToast } from 'react-native-toast-notifications';
 
 interface TaskCardProps {
   task: {
@@ -17,6 +18,7 @@ interface TaskCardProps {
 }
 
 export default function TaskCard({ task, index, setTasks, onEdit, className }: TaskCardProps) {
+  const toast = useToast();
   const [showMenu, setShowMenu] = useState(false);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const ellipsisRef = useRef<TouchableOpacity>(null);
@@ -63,6 +65,7 @@ export default function TaskCard({ task, index, setTasks, onEdit, className }: T
           setTasks((prevTasks) => {
             return prevTasks.filter((_, i) => i !== index);
           });
+          toast.show('Task Deleted Successfully', { type: 'success' });
         },
       },
     ]);
