@@ -21,8 +21,8 @@ Make sure you have the following installed:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/taskmaster.git
-cd taskmaster
+git clone https://github.com/kimo871/TodoApp.git
+
 
 # 2. Install dependencies
 npm install
